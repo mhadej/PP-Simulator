@@ -1,4 +1,6 @@
-﻿namespace Simulator;
+﻿using System.Security.Cryptography.X509Certificates;
+
+namespace Simulator;
 
 internal class Program
 {
@@ -7,3 +9,5 @@ internal class Program
         Console.WriteLine("Starting Simulator!\n");
     }
 }
+
+
