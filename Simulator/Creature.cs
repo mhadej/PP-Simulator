@@ -42,5 +42,23 @@
         {
             this.level = this.level < 10 ? ++this.level : 10;
         }
+
+        public void Go(Direction dir)
+        {
+            Console.WriteLine($"{this.name} goes {dir.ToString().ToLower()}");
+        }
+
+        public void Go(Direction[] dirtable)
+        {
+            foreach(Direction move in dirtable)
+            {
+                Go(move);
+            }
+        }
+
+        public void Go(string moves)
+        {
+            Go(DirectionParser.Parse(moves));
+        }
     }
 }
