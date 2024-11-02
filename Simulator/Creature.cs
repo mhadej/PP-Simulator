@@ -10,24 +10,19 @@
             get => name;
             init
             {
-                name = string.IsNullOrEmpty(value) ? "Unknown" : value.Trim();
-                name = name.Length >= 3 ? name : name + new string('#', (3 - name.Length));
-                name = name.Length > 25 ? name[..25] : name;
-                name = name.Trim();
-                name = name.Length >= 3 ? name : name + new string('#', (3 - name.Length));
-                name = name.ToUpper()[0] + name[1..name.Length];
+                name = Validator.Shortener(value);
             }
         }
 
         public abstract int Power { get; }
-            
 
-        public int Level    
-        { 
-            get => level; 
+
+        public int Level
+        {
+            get => level;
             init
             {
-                level = (value >= 1 && value <= 10) ? value : (value < 1 ? 1 : 10);
+                level = Validator.Limiter(value);
             }
         }
 
@@ -41,7 +36,12 @@
 
         public abstract void SayHi();
 
-        public string Info => $"{Name} - {Level}";
+        public abstract string Info { get; }
+
+        public override string ToString()
+        {
+            return base.GetType().ToString().ToUpper() + ": " + this.Info;
+        }
 
         public void Upgrade()
         {
@@ -73,7 +73,7 @@
         public int Agility 
         {
             get  => agility;
-            init => agility = (value >= 1 && value <= 10) ? value : (value < 1 ? 1 : 10);
+            init => agility = Validator.Limiter(value, min: 0);
         }
         public void Sing()
         {
@@ -90,6 +90,8 @@
         }
 
         public override int Power => Level * 8 + Agility * 2;
+
+        public override string Info => $"{Name} [{Level}][{Agility}]";
         public Elf() { }
     }
     public class Orc : Creature
@@ -98,7 +100,7 @@
         public int Rage
         {
             get  => rage;
-            init => rage = (value >= 1 && value <= 10) ? value : (value < 1 ? 1 : 10);
+            init => rage = Validator.Limiter(value, min: 0);
         }
         public void Hunt()
         {
@@ -116,6 +118,8 @@
         public override void SayHi() => Console.WriteLine($"Hi, I'm {Name}, my level is {Level}, my rage is {Rage}.");
 
         public override int Power => Level * 7 + Rage * 3;
+
+        public override string Info => $"{Name} [{Level}][{Rage}]";
 
 
         //public Orc() : base("N/A", 10) => Rage = 6;
