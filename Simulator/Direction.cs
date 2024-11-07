@@ -7,5 +7,4 @@
         Down,
         Left
     }
-
 }

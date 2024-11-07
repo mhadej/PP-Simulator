@@ -1,70 +1,63 @@
-﻿using System.Diagnostics;
-using System.Runtime.Intrinsics.X86;
-
-namespace Simulator;
+﻿namespace Simulator;
 
 internal class Program
 {
+
     static void Main(string[] args)
     {
         Console.WriteLine("Starting Simulator!\n");
 
-        //Lab4a();
-
-        // Creature c = new Elf("Elandor", 5, 3);
-        // Console.WriteLine(c);  // ELF: Elandor [5]
-
-        Lab4b();
+        Lab5a();
     }
 
-    static void Lab4a()
+    public static void Lab5a()
     {
-        Console.WriteLine("HUNT TEST\n");
-        var o = new Orc() { Name = "Gorbag", Rage = 7 };
-        o.SayHi();
-        for (int i = 0; i < 10; i++)
+        Point[] pts = [
+            new(-3, 1), new(-1, 1),
+            new(2, 1) , new(2, -1),
+            new(5, -1), new(-2, 2)];
+
+        Rectangle rec1 = new(4, 2, -2, -2);
+        
+        for(int i = 0; i < pts.Length; i++)
         {
-            o.Hunt();
-            o.SayHi();
+            Console.WriteLine(rec1.Contains(pts[i]));
         }
 
-        Console.WriteLine("\nSING TEST\n");
-        var e = new Elf("Legolas", agility: 2);
-        e.SayHi();
-        for (int i = 0; i < 10; i++)
+        Console.WriteLine();
+
+        for(int i = 0; i < pts.Length-1; i++)
         {
-            e.Sing();
-            e.SayHi();
+            try
+            {
+                Rectangle rec2 = new(pts[i], pts[i+1]);
+                Console.WriteLine(rec2.ToString());
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
-        Console.WriteLine("\nPOWER TEST\n");
-        Creature[] creatures = {
-        o,
-        e,
-        new Orc("Morgash", 3, 8),
-        new Elf("Elandor", 5, 3)
-    };
-        foreach (Creature creature in creatures)
-        {
-            Console.WriteLine($"{creature.Name,-15}: {creature.Power}");
-        }
-    }
-    static void Lab4b()
-    {
-        object[] myObjects = {
-        new Animals() { Description = "dogs"},
-        new Birds { Description = "  eagles ", Size = 10 },
-        new Elf("e", 15, -3),
-        new Orc("morgash", 6, 4)
-    };
-        Console.WriteLine("\nMy objects:");
-        foreach (var o in myObjects) Console.WriteLine(o);
-        /*
-            My objects:
-            ANIMALS: Dogs <3>
-            BIRDS: Eagles (fly+) <10>
+        /* 
+        results:
+
+        false
+        true
+        true
+        true
+        false
+        true
+
+        exception
+        exception
+        exception
+        exception
+        no exception
         */
     }
 }
+
+
 
 
