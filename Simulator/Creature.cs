@@ -34,7 +34,7 @@
 
         public Creature() { }
 
-        public abstract void SayHi();
+        public abstract string Greeting();
 
         public abstract string Info { get; }
 
@@ -48,23 +48,22 @@
             this.level = this.level < 10 ? ++this.level : 10;
         }
 
-        public void Go(Direction dir)
-        {
-            Console.WriteLine($"{this.name} goes {dir.ToString().ToLower()}");
-        }
+        public string Go(Direction direction) => $"{direction.ToString().ToLower()}";
 
-        public void Go(Direction[] dirtable)
+        public string[] Go(Direction[] dirtable)
         {
-            foreach(Direction move in dirtable)
+            string[] output = new string[dirtable.Length];
+
+            for(int i=0; i<dirtable.Length; i++)
             {
-                Go(move);
+                output[i] = Go(dirtable[i]);
             }
+
+            return output;
         }
 
-        public void Go(string moves)
-        {
-            Go(DirectionParser.Parse(moves));
-        }
+        public string[] Go(string moves) => Go(DirectionParser.Parse(moves));
+
     }
 
     public class Elf : Creature
@@ -79,10 +78,9 @@
         {
             agility += (this.counter % 3 == 0) ? (agility < 10 ? 1 : 0) : 0;
             this.counter++;
-            Console.WriteLine($"{Name} is singing.");
         }
 
-        public override void SayHi() => Console.WriteLine($"Hi, I'm {Name}, my level is {Level}, my agility is {Agility}.");
+        public override string Greeting() => $"Hi, I'm {Name}, my level is {Level}, my agility is {Agility}.";
 
         public Elf(string name = "N/Ae", int level = 1, int agility = 1) : base(name, level)
         {
@@ -106,7 +104,6 @@
         {
             rage += (this.counter % 2 == 0) ? (rage < 10 ? 1 : 0) : 0;
             this.counter++;
-            Console.WriteLine($"{this.counter}. - {Name} is hunting.");
         }
 
 
@@ -115,7 +112,7 @@
             Rage = rage;
         }
 
-        public override void SayHi() => Console.WriteLine($"Hi, I'm {Name}, my level is {Level}, my rage is {Rage}.");
+        public override string Greeting() => $"Hi, I'm {Name}, my level is {Level}, my rage is {Rage}.";
 
         public override int Power => Level * 7 + Rage * 3;
 

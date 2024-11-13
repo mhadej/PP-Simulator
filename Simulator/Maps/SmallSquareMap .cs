@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Simulator.Maps
 {
-    internal class SmallSquareMap : Map
+    public class SmallSquareMap : Map
     {
         public readonly int Size;
+        private Rectangle mapa;
 
         public SmallSquareMap(int size)
         {
@@ -19,17 +20,16 @@ namespace Simulator.Maps
             else
             {
                 Size = size;
+                mapa = new(0, 0, size - 1, size - 1);
             }
         }
         public override bool Exist(Point p)
         {
-            Rectangle mapa = new(0, 0, Size-1, Size-1);
             return mapa.Contains(p);
         }
 
         public override Point Next(Point p, Direction d)
         {
-            Rectangle mapa = new(0, 0, Size - 1, Size - 1);
             if (mapa.Contains(p.Next(d)) == true)
             {
                 return p.Next(d);
@@ -39,7 +39,6 @@ namespace Simulator.Maps
 
         public override Point NextDiagonal(Point p, Direction d)
         {
-            Rectangle mapa = new(0, 0, Size - 1, Size - 1);
             if (mapa.Contains(p.NextDiagonal(d)) == true)
             {
                 return p.NextDiagonal(d);
