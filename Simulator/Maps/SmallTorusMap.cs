@@ -57,71 +57,36 @@ namespace Simulator.Maps
         public override Point NextDiagonal(Point p, Direction d)
         {
             int edge = Size - 1;
-            //Point going outside of map
-            if (!mapa.Contains(p.NextDiagonal(d)))
+            if(!mapa.Contains(p.NextDiagonal(d)))
             {
-                if (p.NextDiagonal(d).X == Size)
-                { 
-                    if (d == (Direction)0)
-                    { // going x+1 y+1
-                        if (p.Y == edge)
-                            return new Point(0, 0);
-                        return new Point(0, p.Y + 1);
-                    }
-                    else
-                    { // going x+1 y-1
-                        if (p.Y == 0)
-                            return new Point(0, edge);
-                        return new Point(0, p.Y - 1);
-                    }
-                }
-                else if (p.NextDiagonal(d).X == -1)
+                //Point is goin above or right to the of map
+                if(p.NextDiagonal(d).X == Size && p.NextDiagonal(d).Y == Size)
                 {
-                    if (d == (Direction)2)
-                    { // going x-1 y-1
-                        if (p.Y == 0)
-                            return new Point(edge, edge);
-                        return new Point(edge, p.Y - 1);
-                    }
-                    else
-                    { // going x-1 y+1
-                        if (p.Y == edge)
-                            return new Point(edge, edge);
-                        return new Point(edge, p.Y + 1);
-                    }
+                    return new Point(0, 0);
+                }
+                else if(p.NextDiagonal(d).X == Size)
+                {
+                    return new Point(0, p.NextDiagonal(d).Y);
                 }
                 else if (p.NextDiagonal(d).Y == Size)
                 {
-                    if (d == (Direction)0)
-                    { // going x+1 y+1
-                        if (p.Y == edge)
-                            return new Point(0, 0);
-                        return new Point(p.X + 1, 0);
-                    }
-                    else
-                    { // going x-1 y+1
-                        if (p.X == 0)
-                            return new Point(0, 0);
-                        return new Point(edge, 0);
-                    }
+                    return new Point(p.NextDiagonal(d).X, 0);
                 }
-                else
+                //Point is goin below or left to the map
+                else if (p.NextDiagonal(d).X < 0 && p.NextDiagonal(d).Y < 0)
                 {
-                    if (d == (Direction)1)
-                    { // going x+1 y-1
-                        if (p.Y == edge)
-                            return new Point(0, edge);
-                        return new Point(p.X + 1, edge);
-                    }
-                    else
-                    { // going x-1 y-1
-                        if (p.X == 0)
-                            return new Point(0, edge);
-                        return new Point(edge, edge);
-                    }
+                    return new Point(edge, edge);
+                }
+                else if (p.NextDiagonal(d).X < 0)
+                {
+                    return new Point(edge, p.NextDiagonal(d).Y);
+                }
+                else if (p.NextDiagonal(d).Y < 0)
+                {
+                    return new Point(p.NextDiagonal(d).X, edge);
                 }
             }
-            return p.NextDiagonal(d);
+            return p.NextDiagonal(d) ;
         }
     }
 }
