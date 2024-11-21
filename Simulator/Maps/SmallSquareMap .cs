@@ -1,33 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Simulator.Maps
 {
-    public class SmallSquareMap : Map
+    public class SmallSquareMap : SmallMap
     {
-        public readonly int Size;
-        private Rectangle mapa;
+        public readonly int Size;        
 
-        public SmallSquareMap(int size)
-        {
-            if(size > 20 || size < 5)
-            {
-                throw new ArgumentOutOfRangeException("Wrong size!");
-            }
-            else
-            {
-                Size = size;
-                mapa = new(0, 0, size - 1, size - 1);
-            }
-        }
-        public override bool Exist(Point p)
-        {
-            return mapa.Contains(p);
-        }
-
+        public SmallSquareMap(int size) : base(size, size) { }
         public override Point Next(Point p, Direction d)
         {
             if (mapa.Contains(p.Next(d)) == true)
@@ -36,7 +14,6 @@ namespace Simulator.Maps
             }
             return p;
         }
-
         public override Point NextDiagonal(Point p, Direction d)
         {
             if (mapa.Contains(p.NextDiagonal(d)) == true)

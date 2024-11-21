@@ -1,34 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Simulator.Maps
 {
-    public class SmallTorusMap : Map
+    public class SmallTorusMap : SmallMap
     {
         public readonly int Size;
-        private Rectangle mapa;
 
-        public SmallTorusMap(int size)
-        {
-            if (size > 20 || size < 5)
-            {
-                throw new ArgumentOutOfRangeException("Wrong size!");
-            }
-            else
-            {
-                Size = size;
-                mapa = new(0, 0, size - 1, size - 1);
-            }
-        }
-
-        public override bool Exist(Point p)
-        {
-            return mapa.Contains(p);
-        }
-
+        public SmallTorusMap(int sizeX, int sizeY) : base(sizeX, sizeY) {  }
         public override Point Next(Point p, Direction d)
         {
             //Point going outside of map
@@ -53,7 +30,6 @@ namespace Simulator.Maps
             }
             return p.Next(d);
         }
-
         public override Point NextDiagonal(Point p, Direction d)
         {
             int edge = Size - 1;
