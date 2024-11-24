@@ -25,8 +25,8 @@ namespace Simulator.Maps
         }
         public virtual bool Exist(Point p) => mapa.Contains(p);
 
-        public int SizeX { get; }
-        public int SizeY { get; }
+        public int SizeX { get; set; }
+        public int SizeY { get; set; }
 
         /// <summary>
         /// Next position to the point in a given direction.
