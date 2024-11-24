@@ -6,13 +6,11 @@ namespace Simulator.Maps
     /// </summary>
     public abstract class Map
     {
-        //public abstract void Add(Creature c, Point p);
-        //public abstract void Remove(Creature c, Point p);
-        //public abstract void Move(Creature c, Point source, Point dest);
-
-        //public void At(Point p) { }
-
-        //public abstract List<Creature>? At(int x, int y);
+        public abstract void Add(Creature c, Point p);
+        public abstract void Remove(Creature c, Point p);
+        public abstract void Move(Creature c, Point source, Point dest);
+        public abstract List<Creature>? At(Point p);
+        public abstract List<Creature>? At(int x, int y);
 
         protected Rectangle mapa;
         protected Map(int sizeX, int sizeY)
@@ -26,7 +24,6 @@ namespace Simulator.Maps
             mapa = new(0, 0, sizeX - 1, sizeY - 1);
         }
         public virtual bool Exist(Point p) => mapa.Contains(p);
-
 
         public int SizeX { get; }
         public int SizeY { get; }

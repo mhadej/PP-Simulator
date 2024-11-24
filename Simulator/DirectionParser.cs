@@ -2,9 +2,9 @@
 {
     public class DirectionParser
     {
-        public static Direction[] Parse(string directions)
+        public static List<Direction> Parse(string directions)
         {
-            Direction[] end = new Direction[directions.Length];
+            List<Direction> end = new();
             int next = 0;
 
             foreach(char letter in directions.ToLower())
@@ -13,25 +13,25 @@
                 {
                     case 'u':
                         {
-                            end[next] = (Direction)0;
+                            end.Add((Direction)0);
                             next++;
                             break;
                         }
                     case 'r':
                         {
-                            end[next] = (Direction)1;
+                            end.Add((Direction)1);
                             next++;
                             break;
                         }
                     case 'd':
                         {
-                            end[next] = (Direction)2;
+                            end.Add((Direction)2);
                             next++;
                             break;
                         }
                     case 'l':
                         {
-                            end[next] = (Direction)3;
+                            end.Add((Direction)3);
                             next++;
                             break;
                         }
@@ -41,8 +41,7 @@
                         }
                 }
             }
-
-            return end[..next];
+            return end;
         }
     }
 }

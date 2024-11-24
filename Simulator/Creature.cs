@@ -1,7 +1,18 @@
-﻿namespace Simulator
+﻿using Simulator.Maps;
+
+namespace Simulator
 {
     public abstract class Creature
     {
+        public Map? Map { get; private set; }
+        public Point Position { get; private set; }
+
+        public void InitMapAndPosition(Map map, Point p)
+        {
+            Map = map;
+            Position = p;
+        }
+
         private string name = "Unknown";
         private int level = 1;
         protected int counter = 1;
@@ -15,7 +26,6 @@
         }
 
         public abstract int Power { get; }
-
 
         public int Level
         {
@@ -48,22 +58,21 @@
             this.level = this.level < 10 ? ++this.level : 10;
         }
 
-        public string Go(Direction direction) => $"{direction.ToString().ToLower()}";
-
-        public string[] Go(Direction[] dirtable)
+        public string Go(Direction direction)
         {
-            string[] output = new string[dirtable.Length];
-
-            for(int i=0; i<dirtable.Length; i++)
+            // zgodnie z regułą mapy
+            try
             {
-                output[i] = Go(dirtable[i]);
+                Map.Move(this, Position, Map.Next(Position, direction));
+                Position = Map.Next(Position, direction);
+            }
+            catch(NullReferenceException)
+            {
+                Console.WriteLine($"This creature ({this.name}) is not on any map!");
             }
 
-            return output;
+            return $"{direction.ToString().ToLower()}";
         }
-
-        public string[] Go(string moves) => Go(DirectionParser.Parse(moves));
-
     }
 
     public class Elf : Creature
