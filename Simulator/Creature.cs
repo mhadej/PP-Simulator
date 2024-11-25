@@ -63,8 +63,7 @@ namespace Simulator
             // zgodnie z regułą mapy
             try
             {
-                Map.Move(this, Position, Map.Next(Position, direction));
-                Position = Map.Next(Position, direction);
+                Map?.Move(this, Position, Map.Next(Position, direction));
             }
             catch(NullReferenceException)
             {

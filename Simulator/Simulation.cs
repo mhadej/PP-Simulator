@@ -31,7 +31,7 @@ public class Simulation
     /// When all creatures make moves, 
     /// next move is again for first creature and so on.
     /// </summary>
-    public string Moves { get; }
+    public string Moves { get; } = "";
 
     /// <summary>
     /// Has all moves been done?
@@ -76,8 +76,12 @@ public class Simulation
         }
         else
         {
+            foreach (Direction dir in DirectionParser.Parse(moves))
+            {
+                Moves += dir.ToString()[0];
+            }
+
             Map = map;
-            Moves = moves;
             Creatures = creatures;
             Positions = positions;
 
@@ -97,14 +101,14 @@ public class Simulation
         /* implement */
         if (!Finished)
         {
-            Point dest = Map.Next(CurrentCreature.Position, CurrentDirection);
-            if (curr > Moves.Length)
+            if (curr >= Moves.Length)
             {
                 Finished = true;
             }
             else
             {
-                Console.WriteLine($"{CurrentCreature.Name} goes {CurrentMoveName} from {CurrentCreature.Position}");
+                Point dest = Map.Next(CurrentCreature.Position, CurrentDirection);
+                Console.WriteLine($"{CurrentCreature.Name} went {CurrentMoveName} from {CurrentCreature.Position}");
                 Map.Move(CurrentCreature, CurrentCreature.Position, dest);
                 curr++;
             }
