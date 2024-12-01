@@ -2,16 +2,10 @@
 
 namespace Simulator
 {
-    public abstract class Creature
+    public abstract class Creature : IMappable
     {
         public Map? Map { get; private set; }
         public Point Position { get; private set; }
-
-        public void InitMapAndPosition(Map map, Point p)
-        {
-            Map = map;
-            Position = p;
-        }
 
         private string name = "Unknown";
         private int level = 1;
@@ -58,23 +52,32 @@ namespace Simulator
             this.level = this.level < 10 ? ++this.level : 10;
         }
 
-        public string Go(Direction direction)
+        void IMappable.Go(Direction direction)
         {
             // zgodnie z regułą mapy
             try
             {
                 Map?.Move(this, Position, Map.Next(Position, direction));
             }
-            catch(NullReferenceException)
+            catch (NullReferenceException)
             {
                 Console.WriteLine($"This creature ({this.name}) is not on any map!");
             }
 
-            return $"{direction.ToString().ToLower()}";
+            Console.WriteLine($"{direction.ToString().ToLower()}");
         }
+
+        void IMappable.InitMapAndPosition(Map map, Point p)
+        {
+            Map = map;
+            Position = p;
+        }
+
+        void IMappable.Symbol() => Console.Write("C");
+
     }
 
-    public class Elf : Creature
+    public class Elf : Creature, IMappable
     {
         private int agility;
         public int Agility 
@@ -99,8 +102,11 @@ namespace Simulator
 
         public override string Info => $"{Name} [{Level}][{Agility}]";
         public Elf() { }
+
+        void IMappable.Symbol() => Console.Write("E");
+
     }
-    public class Orc : Creature
+    public class Orc : Creature, IMappable
     {
         private int rage;
         public int Rage
@@ -130,6 +136,8 @@ namespace Simulator
         //public Orc() : base("N/A", 10) => Rage = 6;
 
         public Orc() { }
+
+        void IMappable.Symbol() => Console.Write("O");
     }
 
 }

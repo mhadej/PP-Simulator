@@ -15,9 +15,9 @@ public class Simulation
     public Map Map { get; }
 
     /// <summary>
-    /// Creatures moving on the map.
+    /// Mappables moving on the map.
     /// </summary>
-    public List<Creature> Creatures { get; }
+    public List<IMappable> Mappables { get; }
 
     /// <summary>
     /// Starting positions of creatures.
@@ -39,12 +39,12 @@ public class Simulation
     public bool Finished = false;
 
     /// <summary>
-    /// Creature which will be moving current turn.
+    /// IMappable which will be moving current turn.
     /// </summary>
-    public Creature CurrentCreature 
+    public IMappable CurrentMappable
     {
         /* implement getter only */
-        get => Creatures[curr%Creatures.Count];
+        get => Mappables[curr% Mappables.Count];
     }
 
     /// <summary>
@@ -53,7 +53,7 @@ public class Simulation
     public string CurrentMoveName 
     {
         /* implement getter only */
-        get => DirectionParser.Parse(Moves)[curr].ToString().ToLower();
+        get => Moves[curr].ToString().ToLower();
     }
 
     public Direction CurrentDirection 
@@ -68,9 +68,9 @@ public class Simulation
     /// if number of creatures differs from 
     /// number of starting positions.
     /// </summary>
-    public Simulation(Map map, List<Creature> creatures, List<Point> positions, string moves)
+    public Simulation(Map map, List<IMappable> mappables, List<Point> positions, string moves)
     { 
-        if(creatures.Count < 1 || creatures.Count != positions.Count)
+        if(mappables.Count < 1 || mappables.Count != positions.Count)
         {
             throw new Exception();
         }
@@ -82,12 +82,12 @@ public class Simulation
             }
 
             Map = map;
-            Creatures = creatures;
+            Mappables = mappables;
             Positions = positions;
 
-            for(int i = 0; i < Creatures.Count; i++)
+            for(int i = 0; i < Mappables.Count; i++)
             {
-                map.Add(Creatures[i], Positions[i]);
+                map.Add(Mappables[i], Positions[i]);
             }
         }
     }
@@ -104,12 +104,13 @@ public class Simulation
             if (curr >= Moves.Length)
             {
                 Finished = true;
+                Environment.Exit(0);
             }
             else
             {
-                Point dest = Map.Next(CurrentCreature.Position, CurrentDirection);
-                Console.WriteLine($"{CurrentCreature.Name} went {CurrentMoveName} from {CurrentCreature.Position}");
-                Map.Move(CurrentCreature, CurrentCreature.Position, dest);
+                Console.Write($"{CurrentMappable} goes ");
+
+                CurrentMappable.Go(CurrentDirection);
                 curr++;
             }
         }

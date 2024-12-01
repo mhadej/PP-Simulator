@@ -2,40 +2,40 @@
 {
     public abstract class SmallMap : Map
     {
-        protected List<Creature>?[,] _fields;
+        protected List<IMappable>?[,] _fields;
         protected SmallMap(int sizeX, int sizeY) : base(sizeX, sizeY)
         {
             if (sizeX > 20) throw new ArgumentOutOfRangeException(nameof(sizeX), "Too wide (X)");
             if (sizeY > 20) throw new ArgumentOutOfRangeException(nameof(sizeY), "Too tall (Y)");
 
-            _fields = new List<Creature>?[sizeX, sizeY];
+            _fields = new List<IMappable>?[sizeX, sizeY];
 
             for (int x = 0; x < SizeX; x++)
             {
                 for (int y = 0; y < SizeY; y++)
                 {
-                   _fields[x, y] = new List<Creature>();
+                   _fields[x, y] = new List<IMappable>();
                 }
             }
         }
 
-        public override List<Creature>? At(int x, int y) => _fields[x, y];
-        public override List<Creature>? At(Point p) => _fields[p.X, p.Y];
+        public override List<IMappable>? At(int x, int y) => _fields[x, y];
+        public override List<IMappable>? At(Point p) => _fields[p.X, p.Y];
 
-        public override void Move(Creature c, Point source, Point dest)
+        public override void Move(IMappable mappable, Point source, Point dest)
         {
-            Remove(c, source);
-            Add(c, dest);
+            Remove(mappable, source);
+            Add(mappable, dest);
         }
-        public override void Remove(Creature c, Point p)
+        public override void Remove(IMappable mappable, Point p)
         {
-            _fields[p.X, p.Y]?.Remove(c);
-            c.InitMapAndPosition(this, default);
+            _fields[p.X, p.Y]?.Remove(mappable);
+           mappable.InitMapAndPosition(this, default);
         }
-        public override void Add(Creature c, Point p)
+        public override void Add(IMappable mappable, Point p)
         {
-            _fields[p.X, p.Y]?.Add(c);
-            c.InitMapAndPosition(this, p);
+            _fields[p.X, p.Y]?.Add(mappable);
+           mappable.InitMapAndPosition(this, p);
         }
     }
 }
