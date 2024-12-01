@@ -23,23 +23,17 @@ namespace SimConsole
             }
             Console.WriteLine(Box.TopRight);
 
-            for(int i = 0; i < (Map.SizeX*2) - 1; i++)
+            for(int i = 0; i < (Map.SizeY*2) - 1; i++)
             {
                 if(i%2 == 0)
                 {
                     for (int j = 0; j < Map.SizeX; j++)
                     {
                         Console.Write(Box.Vertical);
+
                         if (Map.At(j, line)?.Count == 1)
                         {
-                            if (Map.At(j, line)?[0] is Elf)
-                            {
-                                Console.Write("E");
-                            }
-                            else
-                            {
-                                Console.Write("O");
-                            }
+                            Map.At(j, line)?[0].Symbol();
                         }
                         else if (Map.At(j, line)?.Count > 1)
                         {
