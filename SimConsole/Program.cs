@@ -12,7 +12,7 @@ namespace SimConsole
             Console.WriteLine("Starting position:");
             Console.OutputEncoding = Encoding.UTF8;
 
-            SmallTorusMap map = new(8, 6);
+            BigBounceMap map = new(8, 6);
 
             List<IMappable> creatures = 
                 [
@@ -23,8 +23,8 @@ namespace SimConsole
                 new Birds { Description = "Ostriches", CanFly = false}
                 ];
 
-            List<Point> points = [new(2, 2), new(3, 1), new(0,0), new(7, 5), new(4,3)];
-            string moves = "drUulrXXXXudlruudlrooxuuurlr";
+            List<Point> points = [new(0, 0), new(7, 0), new(7, 5), new(0, 5), new(7, 5)];
+            string moves = "drUdurdurdruulrXXXXudlruudlrooxuuurlr";
 
             Simulation simulation = new(map, creatures, points, moves);
             MapVisualizer mapVisualizer = new(simulation.Map);
