@@ -96,7 +96,7 @@ public class Simulation
     /// Makes one move of current creature in current direction.
     /// Throw error if simulation is finished.
     /// </summary>
-    public void Turn() 
+    public void Turn(bool showoutput) 
     {
         /* implement */
         if (!Finished)
@@ -108,15 +108,20 @@ public class Simulation
             }
             else
             {
-                Console.Write($"{CurrentMappable} goes ");
-
-                CurrentMappable.Go(CurrentDirection);
+                if (showoutput)
+                {
+                    Console.Write($"{CurrentMappable} goes ");
+                }
+                CurrentMappable.Go(CurrentDirection, showoutput);
                 curr++;
             }
         }
         else
         {
-            Console.WriteLine("All moves has been done.");
+            if (showoutput)
+            {
+                Console.WriteLine("All moves has been done.");
+            }
         }
     }
 }

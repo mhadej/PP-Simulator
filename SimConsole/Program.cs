@@ -9,7 +9,7 @@ namespace SimConsole
         static void Main(string[] args)
         {
 
-            Console.WriteLine("Starting position:");
+            //Console.WriteLine("Starting position:");
             Console.OutputEncoding = Encoding.UTF8;
 
             BigBounceMap map = new(8, 6);
@@ -24,7 +24,7 @@ namespace SimConsole
                 ];
 
             List<Point> points = [new(0, 0), new(7, 0), new(7, 5), new(0, 5), new(7, 5)];
-            string moves = "drUdurdurdruulrXXXXudlruudlrooxuuurlr";
+            string moves = "ldlrudlrudlrdruldrudd";
 
             Simulation simulation = new(map, creatures, points, moves);
             MapVisualizer mapVisualizer = new(simulation.Map);
@@ -36,9 +36,18 @@ namespace SimConsole
                 Console.ReadKey();
                 Console.Clear();
                 Console.WriteLine($"{i + 1}. Turn");
+                simulation.Turn(true);
                 mapVisualizer.Draw();
-                simulation.Turn();
             }
+
+            SimulationHistory hist = new(new Simulation(map, creatures, points, moves));
+            hist.Step(5);
+
+            hist.Step(10);
+
+            hist.Step(15);
+
+            hist.Step(20);
         }
     }
 }

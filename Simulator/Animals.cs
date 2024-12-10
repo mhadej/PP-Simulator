@@ -18,7 +18,7 @@ namespace Simulator
 
         public virtual string Info => $"{Description} <{Size}>";
 
-        void IMappable.Go(Direction direction)
+        void IMappable.Go(Direction direction, bool output)
         {
             // zgodnie z regułą mapy
             try
@@ -27,10 +27,15 @@ namespace Simulator
             }
             catch (NullReferenceException)
             {
-                Console.WriteLine($"This creature ({this}) is not on any map!");
+                if(output)
+                {
+                     Console.WriteLine($"This creature ({this}) is not on any map!");
+                }
             }
-
-            Console.WriteLine($"{direction.ToString().ToLower()}");
+            if (output)
+            {
+                Console.WriteLine($"{direction.ToString().ToLower()}");
+            }
         }
         void IMappable.InitMapAndPosition(Map map, Point p)
         {
@@ -40,11 +45,13 @@ namespace Simulator
         public override string ToString() => base.GetType().ToString().ToUpper() + ": " + this.Info;
 
         void IMappable.Symbol() => Console.Write("A");
+
+        public Point CurrentPosition() => Position;
     }
 
     public class Birds : Animals, IMappable
     {
-        void IMappable.Go(Direction direction)
+        void IMappable.Go(Direction direction, bool output)
         {
             if(CanFly)
             {
@@ -55,7 +62,10 @@ namespace Simulator
                 Map?.Move(this, Position, Map.NextDiagonal(Position, direction));
             }
 
-            Console.WriteLine($"{direction.ToString().ToLower()}");
+            if (output)
+            {
+                Console.WriteLine($"{direction.ToString().ToLower()}");
+            }
         }
         public bool CanFly
         {

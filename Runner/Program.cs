@@ -9,38 +9,25 @@ internal class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Starting Simulator!");
+        Console.OutputEncoding = Encoding.UTF8;
 
-        bool one = true;
-        if (one)
-        {
-            BigBounceMap mapa = new(8, 10);
+        BigBounceMap map = new(8, 6);
 
-            Point[] points = [new Point(0,0), new Point(4,0),
-            new Point(0,9), new Point(4,9)];
+        List<IMappable> creatures =
+            [
+            new Elf("Elandor"),
+                new Orc("Gorbag"),
+                new Animals { Description = "Rabbits", Size = 20},
+                new Birds { Description = "Eagles"},
+                new Birds { Description = "Ostriches", CanFly = false}
+            ];
 
-            for (int i = 0; i < 4; i++)
-            {
-                Console.WriteLine($"{points[i]}");
-                for (int j = 0; j < 4; j++)
-                {
-                    Console.WriteLine($"{(Direction)j}: ");
-                    Console.WriteLine(mapa.NextDiagonal(points[i % 4], (Direction)j));
-                }
-                Console.WriteLine();
-            }
-        }
+        List<Point> points = [new(0, 0), new(7, 0), new(7, 5), new(0, 5), new(7, 5)];
+        string moves = "drUdurdurdruulrXXXXudlruudlrooxuuurlr";
 
-        Dictionary<Point, List<IMappable>>? _fields = new();
+        Simulation simulation = new(map, creatures, points, moves);
+        MapVisualizer mapVisualizer = new(simulation.Map);
 
-        List<IMappable> imap = new();
-        imap.Add(new Elf("Elandor", 2));
-        imap.Add(new Orc("Uruk", 7));
-        imap.Add(new Birds { Description = "Strusie", Size = 21});
-        Point p1 = new(0, 0);
-
-        _fields[p1] = imap;
-
-        Console.WriteLine(_fields[p1]);
+        SimulationHistory hist = new(simulation);
     }
 }

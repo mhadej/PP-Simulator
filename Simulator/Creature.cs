@@ -52,7 +52,7 @@ namespace Simulator
             this.level = this.level < 10 ? ++this.level : 10;
         }
 
-        void IMappable.Go(Direction direction)
+        void IMappable.Go(Direction direction, bool output)
         {
             // zgodnie z regułą mapy
             try
@@ -64,7 +64,10 @@ namespace Simulator
                 Console.WriteLine($"This creature ({this.name}) is not on any map!");
             }
 
-            Console.WriteLine($"{direction.ToString().ToLower()}");
+            if (output)
+            {
+                Console.WriteLine($"{direction.ToString().ToLower()}");
+            }
         }
 
         void IMappable.InitMapAndPosition(Map map, Point p)
@@ -75,6 +78,10 @@ namespace Simulator
 
         void IMappable.Symbol() => Console.Write("C");
 
+        public Point CurrentPosition()
+        {
+            return Position;
+        }
     }
 
     public class Elf : Creature, IMappable
