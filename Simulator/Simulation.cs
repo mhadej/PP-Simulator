@@ -104,7 +104,6 @@ public class Simulation
             if (curr >= Moves.Length)
             {
                 Finished = true;
-                Environment.Exit(0);
             }
             else
             {

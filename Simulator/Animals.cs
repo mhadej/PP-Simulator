@@ -18,6 +18,8 @@ namespace Simulator
 
         public virtual string Info => $"{Description} <{Size}>";
 
+        public char Symbol => 'A';
+
         void IMappable.Go(Direction direction, bool output)
         {
             // zgodnie z regułą mapy
@@ -44,9 +46,6 @@ namespace Simulator
         }
         public override string ToString() => base.GetType().ToString().ToUpper() + ": " + this.Info;
 
-        void IMappable.Symbol() => Console.Write("A");
-
-        public Point CurrentPosition() => Position;
     }
 
     public class Birds : Animals, IMappable
@@ -73,7 +72,7 @@ namespace Simulator
             get;
         } = true;
 
-        void IMappable.Symbol() => Console.Write(CanFly ? 'B' : 'b');
+        public char Symbol => CanFly ? 'B' : 'b';
 
         public override string Info => $"{Description} " + (CanFly ? "(fly+)" : "(fly-)") + $" <{Size}>";
     }

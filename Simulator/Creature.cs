@@ -75,13 +75,8 @@ namespace Simulator
             Map = map;
             Position = p;
         }
+        public char Symbol => 'C';
 
-        void IMappable.Symbol() => Console.Write("C");
-
-        public Point CurrentPosition()
-        {
-            return Position;
-        }
     }
 
     public class Elf : Creature, IMappable
@@ -110,7 +105,7 @@ namespace Simulator
         public override string Info => $"{Name} [{Level}][{Agility}]";
         public Elf() { }
 
-        void IMappable.Symbol() => Console.Write("E");
+        public char Symbol => 'E';
 
     }
     public class Orc : Creature, IMappable
@@ -144,7 +139,7 @@ namespace Simulator
 
         public Orc() { }
 
-        void IMappable.Symbol() => Console.Write("O");
+        public char Symbol => 'O';
     }
 
 }

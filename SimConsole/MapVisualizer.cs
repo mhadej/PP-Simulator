@@ -16,7 +16,7 @@ namespace SimConsole
         {
             int line = Map.SizeY - 1;
             Console.Write($"{Box.TopLeft}{Box.Horizontal}");
-            for(int i = 0; i < Map.SizeX-1; i++)
+            for(int i = 0; i < Map.SizeX - 1; i++)
             {
                 Console.Write(Box.TopMid);
                 Console.Write(Box.Horizontal);
@@ -33,7 +33,7 @@ namespace SimConsole
 
                         if (Map.At(j, line)?.Count == 1)
                         {
-                            Map.At(j, line)?[0].Symbol();
+                            Console.Write(Map.At(j, line)?[0].Symbol);
                         }
                         else if (Map.At(j, line)?.Count > 1)
                         {
