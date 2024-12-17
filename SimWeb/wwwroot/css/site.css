@@ -1,0 +1,112 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background-color: crimson;
+    font-family: Consolas;
+}
+
+* {
+    font-family: Consolas;
+}
+
+header {
+    background-color: crimson;
+    padding: 15px 5px 15px 25px;
+    color: beige;
+    font-size: 1.6em;
+    box-shadow: 0 0px 15px -2px red;
+    height: 2rem;
+}
+
+a {
+    text-decoration: none;
+    color: #7A151F;
+    transition: color 0.25s ease-in-out;
+}
+
+a:hover {
+    color: beige;
+}
+
+main {
+    padding-top: 2.2rem;
+    padding-bottom: 2.2rem;
+    text-align: center;
+    color: beige;
+    font-size: 14px;
+    background-color: #707070;
+}
+
+main > img {
+    width: 20rem;
+}
+
+footer {
+    font-size: 14px;
+    text-align: center;
+    font-style: italic;
+    color: beige;
+    background-color: #BF2231;
+
+    line-height: 5rem;
+    height: 5rem;
+}
+
+div.map-header {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    margin-left: 1rem;
+    text-align: center;
+    font-size: 20px;
+}
+
+div.map-header button {
+    border-radius: 5px;
+    color: crimson;
+    font-weight: 900;
+    font-size: 20px;
+    width: 3rem;
+}
+
+div.map-header button:active{
+    background-color: crimson;
+    border-color: red;
+    color: black;
+}
+
+div.map-header button:hover{
+    color: black;
+    border-color: red;
+}
+
+div.map {
+    margin: auto;
+    width: 47em;
+    display: grid;
+    grid-template-columns: max-content repeat(8, max-content);
+    grid-template-rows: repeat(6, 1fr) max-content;
+}
+
+div.map > p {
+    padding: 0 1rem 0 0;
+    font-size: 25px;
+}
+
+div.map > span {
+    padding: 0.4rem 0 0 0;
+    font-size: 25px;
+}
+
+div.map > div{
+    background-color: crimson;
+    border: 1px solid white;
+    width : 5rem;
+    height : 5rem;
+}
+
+div.map > div > img{
+    width: 4.9rem;
+}

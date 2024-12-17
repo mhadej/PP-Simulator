@@ -1,0 +1,72 @@
+﻿@page
+@model SimWeb.Pages.SimulationModel
+
+<div class="map-header">
+    <form method="post" asp-page-handler="Previous">
+        <button>&larr;</button>
+    </form>
+    <div class="turn">
+        &nbsp; Tura @Model.Counter &nbsp;
+    </div>
+    <form method="post" asp-page-handler="Next">
+        <button>&rarr;</button>
+    </form>
+</div>
+
+<div class="map">
+
+    @for (int y = @Model.SimulHis.SizeY - 1; y >= 0; y--)
+    {
+        <p>@y</p>
+        @for (int x = 0; x < @Model.SimulHis.SizeX; x++)
+        {
+            <div>
+                @if (@Model.SimulHis.TurnLogs[@Model.Counter].Symbols[new Simulator.Point(x, y)] == 'X')
+                {
+                    <img src="img/all.png" />
+                }
+                else if (@Model.SimulHis.TurnLogs[@Model.Counter].Symbols[new Simulator.Point(x, y)] == 'O')
+                {
+                    <img src="img/orc.png" />
+                }
+                else if (@Model.SimulHis.TurnLogs[@Model.Counter].Symbols[new Simulator.Point(x, y)] == 'E')
+                {
+                    <img src="img/elf.png" />
+                }
+                else if (@Model.SimulHis.TurnLogs[@Model.Counter].Symbols[new Simulator.Point(x, y)] == 'A')
+                {
+                    <img src="img/rabbit.png" />
+                }
+                else if (@Model.SimulHis.TurnLogs[@Model.Counter].Symbols[new Simulator.Point(x, y)] == 'B')
+                {
+                    <img src="img/eagle.png" />
+                }
+                else if (@Model.SimulHis.TurnLogs[@Model.Counter].Symbols[new Simulator.Point(x, y)] == 'b')
+                {
+                    <img src="img/emu.png" />
+                }
+            </div>
+        }
+    }
+        @for (int x = 0; x < @Model.SimulHis.SizeX + 1; x++)
+        {
+            <span>
+            @if((x-1) >= 0) 
+            {
+                @(x-1)
+            }
+            </span>
+        }
+
+</div>
+
+    @if (@Model.Counter == 0)
+    {
+        <p>Pozycja Startowa</p>
+    }
+    else
+    {
+        <p><span id='mappable'>@Model.SimulHis.TurnLogs[Model.Counter-1].Mappable</span> goes @Model.DirTracker(@Model.SimulHis.TurnLogs[Model.Counter-1].Move[0])</p>
+    }
+
+
